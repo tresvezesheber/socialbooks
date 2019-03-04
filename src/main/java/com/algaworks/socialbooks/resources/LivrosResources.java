@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/livros")
@@ -24,4 +25,15 @@ public class LivrosResources {
     public void salvar(@RequestBody Livro livro) {
         livrosRepository.save(livro);
     }
+
+    @GetMapping("/{id}")
+    public Optional<Livro> buscar(@PathVariable Long id) {
+        return livrosRepository.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        livrosRepository.deleteById(id);
+    }
+
 }
