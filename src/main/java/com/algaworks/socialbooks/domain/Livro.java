@@ -19,8 +19,10 @@ public class Livro {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date publicacao;
 
+    @ManyToOne
+    @JoinColumn(name = "AUTOR_ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String autor;
+    private Autor autor;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String editora;
@@ -63,11 +65,11 @@ public class Livro {
         this.publicacao = publicacao;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
