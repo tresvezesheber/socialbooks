@@ -1,5 +1,6 @@
 package com.algaworks.socialbooks.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Livro {
     private String nome;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date publicacao;
 
     @ManyToOne
@@ -30,7 +32,7 @@ public class Livro {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String resumo;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany(mappedBy = "livro")
     private List<Comentario> comentarios;
 
