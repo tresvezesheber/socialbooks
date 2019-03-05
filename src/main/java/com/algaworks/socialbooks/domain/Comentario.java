@@ -3,8 +3,12 @@ package com.algaworks.socialbooks.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -15,6 +19,9 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo texto é de preenchimento obrigatório.")
+    @Size(max = 1500, message = "O comentário não pode conter mais de 1500 caracteres.")
+    @JsonProperty("comentario")
     private String texto;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

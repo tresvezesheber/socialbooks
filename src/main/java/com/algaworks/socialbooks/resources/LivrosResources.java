@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class LivrosResources {
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody Livro livro) {
+    public ResponseEntity<Void> salvar(@Valid @RequestBody Livro livro) {
 
         livro = livrosService.salvar(livro);
 
@@ -55,7 +56,7 @@ public class LivrosResources {
     }
 
     @PostMapping("/{id}/comentarios")
-    public ResponseEntity<Void> adicionarComentario(@PathVariable("id") Long livroId, @RequestBody Comentario comentario) {
+    public ResponseEntity<Void> adicionarComentario(@PathVariable("id") Long livroId, @Valid @RequestBody Comentario comentario) {
         livrosService.salvarComentario(livroId, comentario);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).build();
