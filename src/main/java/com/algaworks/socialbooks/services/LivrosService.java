@@ -67,4 +67,9 @@ public class LivrosService {
         comentario.setData(new Date());
         return comentariosRepository.save(comentario);
     }
+
+    public List<Comentario> listarComentarios(Long livroId) {
+        Livro livro = buscar(livroId);
+        return livro.getComentarios();
+    }
 }
