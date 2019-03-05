@@ -4,6 +4,7 @@ import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
 import com.algaworks.socialbooks.services.LivrosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/livros")
@@ -39,7 +41,12 @@ public class LivrosResources {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable Long id) {
         Livro livro = livrosService.buscar(id);
-        return ResponseEntity.ok(livro);
+
+        CacheControl cacheControl = CacheControl.maxAge(30, TimeUnit.MINUTES);
+
+        //TODO Cache-Control →max-age=20 é enviado no header, porém não funciona
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(20, TimeUnit.SECONDS)).body(livro);
+//        return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livro);
     }
 
     @DeleteMapping("/{id}")
