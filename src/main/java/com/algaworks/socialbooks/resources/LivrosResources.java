@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/livros")
 public class LivrosResources {
